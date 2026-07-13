@@ -280,30 +280,92 @@ Le portail peut alors evoluer et etre redeploye sans rebuild du corpus.
 
 ## Mise a jour du portail apres modification
 
-Workflow local :
+### Checklist locale
+
+Depuis le depot local du portail :
+
+```bash
+cd /chemin/vers/keltiawave-portal
+git status --short
+```
+
+Verifier avant commit :
+
+- `index.html` reference uniquement des chemins relatifs `assets/...` ;
+- les nouveaux avatars sont en `.webp` optimise, pas en `.png` source lourd ;
+- les fichiers `.env`, `.DS_Store`, archives ou dossiers de travail ne sont pas suivis ;
+- `Dockerfile` et `docker-compose.yml` restent presents a la racine.
+
+Pour convertir un PNG d'avatar en WebP avant commit :
+
+```bash
+cwebp -q 82 assets/source-avatar.png -o assets/nom-avatar.webp
+```
+
+Si le PNG contient trop de marge blanche, recadrer pendant la conversion :
+
+```bash
+cwebp -q 82 -crop X Y LARGEUR HAUTEUR assets/source-avatar.png -o assets/nom-avatar.webp
+```
+
+### Commit et tag
+
+Exemple :
 
 ```bash
 git status
-git add index.html README.md Dockerfile docker-compose.yml assets
-git commit -m "<message>"
-git tag <tag-explicite>
+git add index.html README.md Dockerfile docker-compose.yml assets/*.webp assets/*.svg assets/*.png assets/*.jpg
+git status --short
+git commit -m "Update portal assets"
+git tag -a portal-assets-YYYY-MM-DD -m "Update portal assets YYYY-MM-DD"
 git push
-git push origin <tag-explicite>
+git push origin portal-assets-YYYY-MM-DD
 ```
+
+Ne pas faire `git add assets/*.png` si le PNG est seulement une source de travail. Dans ce cas, ajouter explicitement les fichiers finaux :
+
+```bash
+git add index.html README.md assets/nom-avatar.webp assets/flag-wales.svg
+```
+
+### Redeploiement OVH
 
 Sur le VPS :
 
 ```bash
+ssh ubuntu@vps-dc75d8a6.vps.ovh.net
 cd /home/ubuntu/apps/keltiawave-portal
 git pull --ff-only
 docker compose up -d --build portal
 ```
 
-Verifier :
+Ce redeploiement ne touche pas au corpus, au backend, a MinIO, a Postgres, ni au transcripteur.
+
+### Verification apres redeploiement
 
 ```bash
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep keltiawave
 curl -sS -o /dev/null -w "%{http_code}\n" https://keltiawave.com/
+curl -I https://keltiawave.com/ | sed -n '1,12p'
+```
+
+Resultat attendu :
+
+```text
+keltiawave-portal   Up ...   80/tcp
+200
+```
+
+Verifier aussi que Caddy route toujours vers le portail :
+
+```bash
+sed -n '1,35p' /home/ubuntu/apps/corpus-collaboratif/deploy/ovh/Caddyfile
+```
+
+Le bloc `keltiawave.com` doit contenir :
+
+```caddy
+reverse_proxy keltiawave-portal:80
 ```
 
 Si seuls `index.html`, `README.md` ou `assets/` changent, aucun service corpus/backend/minio/postgres n'a besoin d'etre relance. Caddy n'a pas besoin d'etre recree tant que le routage reste `reverse_proxy keltiawave-portal:80`.
