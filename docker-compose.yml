@@ -1,0 +1,16 @@
+name: keltiawave-portal
+
+services:
+  portal:
+    container_name: keltiawave-portal
+    build: .
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - ovh_default
+
+networks:
+  ovh_default:
+    external: true
+    name: ovh_default
