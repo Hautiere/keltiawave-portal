@@ -24,6 +24,7 @@ portal-standalone/
     ├── fanch-avatar-cymru-rugby.webp
     ├── fanch-avatar-cymru-rugby2.webp
     ├── fanch-avatar-hoodie.webp
+    ├── fanch-avatar-hoodie2.webp
     ├── flag-brittany.png
     ├── flag-cornwall.svg
     └── flag-wales.svg
