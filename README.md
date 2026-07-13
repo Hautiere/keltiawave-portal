@@ -38,6 +38,26 @@ assets/...
 
 Elle peut donc etre deplacee telle quelle dans un autre depot.
 
+## Regle de nommage des tags
+
+Les tags Git doivent etre lisibles par un non-technicien et decrire la modification visible ou fonctionnelle.
+
+Format recommande :
+
+```text
+<projet>-<effet-visible>-YYYY-MM-DD
+```
+
+Exemples :
+
+```text
+portal-links-open-transcriptor-tools-2026-07-13
+portal-logo-opens-main-portal-2026-07-13
+portal-footer-shows-legal-contact-2026-07-13
+```
+
+Eviter les tags trop techniques comme `fix-html-hrefs`, `docker-static-build` ou `route-patch`.
+
 ## Liens publics utilises
 
 Le portail pointe vers les services publics suivants :
