@@ -175,7 +175,7 @@
       width: min(100% - 44px, 1450px);
       min-height: 360px;
       display: grid;
-      grid-template-columns: minmax(520px, .9fr) minmax(620px, 1.1fr);
+      grid-template-columns: minmax(600px, .95fr) minmax(580px, 1.05fr);
       align-items: center;
       gap: clamp(30px, 4vw, 62px);
       margin: 0 auto;
@@ -214,13 +214,17 @@
     }
 
     .script {
-      display: block;
-      margin-top: 6px;
+      display: inline;
+      margin-left: .14em;
       color: var(--blue);
       font-family: "Comic Sans MS", "Segoe Print", cursive;
-      font-size: clamp(28px, 3.4vw, 40px);
+      font-size: clamp(27px, 2.85vw, 34px);
       line-height: 1;
       font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .title-tail {
       white-space: nowrap;
     }
 
@@ -674,6 +678,10 @@
         white-space: normal;
       }
 
+      .title-tail {
+        white-space: normal;
+      }
+
       .language-cards {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -836,7 +844,7 @@
           <div class="hero-copy">
             <span class="pill">🚀 New project</span>
             <div>
-              <h1>Surfing the digital wave <span class="script">for Brittonic languages</span></h1>
+              <h1>Surfing the digital <span class="title-tail">wave <span class="script">for Brittonic languages</span></span></h1>
             </div>
             <p>KeltiaWave is an independent project to test and improve digital tools for Breton and Welsh. Cornish tools will follow.</p>
             <div class="beta-note">
