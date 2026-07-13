@@ -151,6 +151,13 @@
       box-shadow: 0 12px 24px rgba(12, 34, 76, .08);
       font-size: 14px;
       font-weight: 900;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .lang-button.active {
+      color: #fff;
+      background: var(--blue);
     }
 
     .hero {
@@ -725,18 +732,18 @@
 
         <nav class="nav" aria-label="Main navigation">
           <a class="active" href="index.html">Home</a>
-          <a href="https://transcription.keltiawave.com/transcribe.html">Transcribe</a>
-          <a href="https://transcription.keltiawave.com/record.html">Record</a>
-          <a href="https://transcription.keltiawave.com/studio.html">Subtitle Studio</a>
-          <a href="https://corpus.keltiawave.com/">Corpus</a>
-          <a href="https://transcription.keltiawave.com/about.html">About</a>
-          <a href="https://transcription.keltiawave.com/contribute.html">Community</a>
+          <a data-language-link href="https://transcription.keltiawave.com/transcribe.html">Transcribe</a>
+          <a data-language-link href="https://transcription.keltiawave.com/record.html">Record</a>
+          <a data-language-link href="https://transcription.keltiawave.com/studio.html">Subtitle Studio</a>
+          <a data-language-link href="https://corpus.keltiawave.com/">Corpus</a>
+          <a data-language-link href="https://transcription.keltiawave.com/about.html">About</a>
+          <a data-language-link href="https://transcription.keltiawave.com/contribute.html">Community</a>
         </nav>
 
         <div class="language-actions" aria-label="Languages">
-          <span class="lang-button">🇬🇧 EN</span>
-          <span class="lang-button">🇨🇾 CY</span>
-          <span class="lang-button"><img src="assets/flag-cornwall.svg" alt="" style="width:22px;height:14px"> BR</span>
+          <button class="lang-button" type="button" data-portal-language="en">🇬🇧 EN</button>
+          <button class="lang-button" type="button" data-portal-language="cy">🇨🇾 CY</button>
+          <button class="lang-button" type="button" data-portal-language="br"><img src="assets/flag-cornwall.svg" alt="" style="width:22px;height:14px"> BR</button>
         </div>
       </header>
 
@@ -746,8 +753,8 @@
           <h1>Surfing the digital wave <span class="script">for Brittonic languages</span></h1>
           <p>Digital tools to transcribe, learn and share Brittonic languages.</p>
           <div class="button-row">
-            <a class="button primary" href="https://transcription.keltiawave.com/transcribe.html">Get started →</a>
-            <a class="button" href="https://transcription.keltiawave.com/about.html">Discover the project →</a>
+            <a class="button primary" data-language-link href="https://transcription.keltiawave.com/transcribe.html">Get started →</a>
+            <a class="button" data-language-link href="https://transcription.keltiawave.com/about.html">Discover the project →</a>
           </div>
         </div>
 
@@ -766,7 +773,7 @@
             <div>
               <h2>Transcribe</h2>
               <p>Audio/video to text</p>
-              <a class="purple-link" href="https://transcription.keltiawave.com/transcribe.html">Open Transcribe →</a>
+              <a class="purple-link" data-language-link href="https://transcription.keltiawave.com/transcribe.html">Open Transcribe →</a>
             </div>
           </div>
           <img class="tool-photo transcribe" src="assets/service-photo-transcribe.png" alt="Transcription interface on a laptop">
@@ -778,7 +785,7 @@
             <div>
               <h2>Record</h2>
               <p>Voice recording and transcription</p>
-              <a class="green-link" href="https://transcription.keltiawave.com/record.html">Open Record →</a>
+              <a class="green-link" data-language-link href="https://transcription.keltiawave.com/record.html">Open Record →</a>
             </div>
           </div>
           <img class="tool-photo record" src="assets/service-photo-record.png" alt="Recording microphone">
@@ -790,7 +797,7 @@
             <div>
               <h2>Subtitle Studio</h2>
               <p>Create and edit subtitles</p>
-              <a class="orange-link" href="https://transcription.keltiawave.com/studio.html">Open Studio →</a>
+              <a class="orange-link" data-language-link href="https://transcription.keltiawave.com/studio.html">Open Studio →</a>
             </div>
           </div>
           <img class="tool-photo studio" src="assets/service-photo-studio.png" alt="Subtitle editing interface">
@@ -802,7 +809,7 @@
             <div>
               <h2>Corpus</h2>
               <p>Breton corpus for now</p>
-              <a class="blue-link" href="https://corpus.keltiawave.com/">Open Corpus →</a>
+              <a class="blue-link" data-language-link href="https://corpus.keltiawave.com/">Open Corpus →</a>
             </div>
           </div>
           <img class="tool-photo corpus" src="assets/service-photo-corpus.png" alt="Corpus interface on a laptop">
@@ -841,5 +848,56 @@
       <a href="mailto:contact@keltiawave.com">contact@keltiawave.com</a>
     </footer>
   </div>
+  <script>
+    (() => {
+      const storageKey = "keltiawave-portal-language";
+      const supportedLanguages = new Set(["en", "cy", "br"]);
+      const links = Array.from(document.querySelectorAll("[data-language-link]"));
+      const buttons = Array.from(document.querySelectorAll("[data-portal-language]"));
+
+      function cleanLanguage(value) {
+        return supportedLanguages.has(value) ? value : "en";
+      }
+
+      function initialLanguage() {
+        const queryLanguage = new URLSearchParams(window.location.search).get("lang");
+        if (queryLanguage) return cleanLanguage(queryLanguage);
+        try {
+          return cleanLanguage(localStorage.getItem(storageKey));
+        } catch {
+          return "en";
+        }
+      }
+
+      function withLanguage(href, language) {
+        const url = new URL(href, window.location.href);
+        url.searchParams.set("lang", language);
+        return url.toString();
+      }
+
+      function setLanguage(language) {
+        const nextLanguage = cleanLanguage(language);
+        document.documentElement.lang = nextLanguage;
+        links.forEach((link) => {
+          link.href = withLanguage(link.href, nextLanguage);
+        });
+        buttons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.portalLanguage === nextLanguage);
+          button.setAttribute("aria-pressed", String(button.dataset.portalLanguage === nextLanguage));
+        });
+        try {
+          localStorage.setItem(storageKey, nextLanguage);
+        } catch {
+          /* Language persistence is optional. */
+        }
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => setLanguage(button.dataset.portalLanguage));
+      });
+
+      setLanguage(initialLanguage());
+    })();
+  </script>
 </body>
 </html>
