@@ -22,6 +22,7 @@ portal-standalone/
     ├── coast-brittany.jpg
     ├── fanch-avatar-bzh-01.webp
     ├── fanch-avatar-cymru-rugby.webp
+    ├── fanch-avatar-cymru-rugby2.webp
     ├── fanch-avatar-hoodie.webp
     ├── flag-brittany.png
     ├── flag-cornwall.svg
