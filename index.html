@@ -175,7 +175,7 @@
       width: min(100% - 44px, 1450px);
       min-height: 360px;
       display: grid;
-      grid-template-columns: minmax(410px, .86fr) minmax(620px, 1.14fr);
+      grid-template-columns: minmax(520px, .9fr) minmax(620px, 1.1fr);
       align-items: center;
       gap: clamp(30px, 4vw, 62px);
       margin: 0 auto;
@@ -185,7 +185,7 @@
     .hero-copy {
       display: grid;
       gap: 14px;
-      max-width: 560px;
+      max-width: 660px;
     }
 
     .pill {
@@ -221,6 +221,7 @@
       font-size: clamp(28px, 3.4vw, 40px);
       line-height: 1;
       font-weight: 750;
+      white-space: nowrap;
     }
 
     .hero p {
@@ -438,12 +439,6 @@
       font-weight: 950;
     }
 
-    .section-title span {
-      color: var(--blue);
-      font-size: 18px;
-      letter-spacing: .6em;
-    }
-
     .section-title small {
       display: block;
       color: var(--text);
@@ -590,33 +585,72 @@
     .footer {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 10px clamp(22px, 5vw, 78px);
-      border-top: 1px solid #e1ebf8;
-      background: #fff;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-height: 44px;
+      padding: 10px clamp(22px, 5vw, 78px) 12px;
+      border-top: 1px solid #dce8f7;
+      background: rgba(255, 255, 255, .92);
       color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 750;
+      line-height: 1.25;
     }
 
-    .footer-left,
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
+    .footer-product,
+    .footer-address,
+    .footer-contact {
+      color: var(--muted);
     }
 
-    .footer-left img {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      object-fit: cover;
-      object-position: center 18%;
+    .footer-contact {
+      text-decoration: none;
     }
 
-    .footer-links a:hover {
+    .footer-contact:hover {
       color: var(--blue);
+      text-decoration: underline;
+    }
+
+    .footer-dot {
+      opacity: .45;
+    }
+
+    .brand-rainbow {
+      position: relative;
+      display: inline-flex;
+      align-items: baseline;
+      flex-wrap: nowrap;
+      gap: .35em;
+      border-radius: 6px;
+      color: inherit;
+      font-size: 19.5px;
+      font-weight: 850;
+      letter-spacing: 0;
+      text-decoration: none;
+    }
+
+    .brand-rainbow:focus-visible {
+      outline: 2px solid rgba(18, 97, 243, .72);
+      outline-offset: 6px;
+    }
+
+    .brand-rainbow span:nth-child(1) { color: #5b8def; }
+    .brand-rainbow span:nth-child(2) { color: #ffd447; }
+    .brand-rainbow span:nth-child(3) { color: #ff8a2a; }
+
+    .brand-rainbow::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -5px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2f6fed, #5b8def, #ffd447, #ff8a2a, #b83246);
+      opacity: .9;
     }
 
     @media (max-width: 1220px) {
@@ -634,6 +668,10 @@
 
       .hero-inner {
         grid-template-columns: 1fr;
+      }
+
+      .script {
+        white-space: normal;
       }
 
       .language-cards {
@@ -694,11 +732,8 @@
         padding-left: 0;
       }
 
-      .footer,
-      .footer-left,
-      .footer-links {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+      .footer {
+        justify-content: center;
       }
     }
 
@@ -744,8 +779,25 @@
         grid-template-columns: 1fr;
       }
 
-      .footer-links {
-        gap: 16px;
+      .footer {
+        min-height: 38px;
+        padding: 8px 14px 10px;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .footer-address {
+        display: none;
+      }
+
+      .brand-rainbow {
+        font-size: 12px;
+        gap: .25em;
+      }
+
+      .brand-rainbow::after {
+        bottom: -3px;
+        height: 1px;
       }
     }
   </style>
@@ -830,7 +882,6 @@
 
       <section class="main">
         <h2 class="section-title">
-          <span>⌁⌁</span>
           Try our beta applications
           <small>Simple tools - Open to all - Your feedback helps us improve</small>
         </h2>
@@ -903,16 +954,16 @@
     </main>
 
     <footer class="footer">
-      <div class="footer-left">
-        <img src="assets/fanch-avatar-bzh-01.webp" alt="">
-        <span>© 2025 KeltiaWave - Beta project</span>
-      </div>
-      <div class="footer-links">
-        <a href="mailto:contact@keltiawave.com">Contact</a>
-        <a href="mailto:contact@keltiawave.com">Privacy</a>
-        <a href="mailto:contact@keltiawave.com">Terms</a>
-        <a href="https://github.com/">GitHub ↗</a>
-      </div>
+      <span class="footer-product">Hautiere prod</span>
+      <span class="footer-address">, 14 Hent Prat Carbon, Beg-Meil, 29170 Fouesnant</span>
+      <span class="footer-dot">-</span>
+      <a class="brand-rainbow" href="https://keltiawave.com/" aria-label="Ouvrir KeltiaWave">
+        <span>Brezhoneg</span>
+        <span>gant</span>
+        <span>Fañch</span>
+      </a>
+      <span class="footer-dot">-</span>
+      <a class="footer-contact" href="mailto:contact@keltiawave.com">contact@keltiawave.com</a>
     </footer>
   </div>
 </body>

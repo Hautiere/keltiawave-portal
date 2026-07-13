@@ -14,6 +14,8 @@ Ce dossier est volontairement autonome pour pouvoir etre copie dans un projet VS
 
 ```text
 portal-standalone/
+├── Dockerfile
+├── docker-compose.yml
 ├── index.html
 ├── README.md
 └── assets/
@@ -75,16 +77,26 @@ http://localhost:8080/
 
 ## Deploiement OVH actuel
 
-Etat actuel documente dans le projet corpus :
+Etat actuel au 2026-07-13 :
 
 ```text
 VPS: vps-dc75d8a6.vps.ovh.net
 SSH: ssh ubuntu@vps-dc75d8a6.vps.ovh.net
+Repo portail: git@github.com:Hautiere/keltiawave-portal.git
+Projet portail: /home/ubuntu/apps/keltiawave-portal
 Projet corpus: /home/ubuntu/apps/corpus-collaboratif
 Projet transcripteur: /home/ubuntu/apps/breizh-transcriptor-whisper
 ```
 
-Le routage public actif est aujourd'hui porte par le Caddy du projet corpus :
+Le portail est maintenant un projet Docker separe :
+
+```text
+keltiawave-portal
+  -> conteneur nginx statique
+  -> expose 80/tcp sur le reseau Docker ovh_default
+```
+
+Le routage public reste porte par le Caddy du projet corpus :
 
 ```text
 /home/ubuntu/apps/corpus-collaboratif/deploy/ovh/Caddyfile
@@ -93,7 +105,7 @@ Le routage public actif est aujourd'hui porte par le Caddy du projet corpus :
 Il route actuellement :
 
 ```text
-keltiawave.com                  -> frontend corpus, avec redirection / vers /portal/
+keltiawave.com                  -> keltiawave-portal:80
 corpus.keltiawave.com           -> frontend corpus
 transcription.keltiawave.com    -> app transcripteur
 ```
@@ -151,10 +163,10 @@ services:
     expose:
       - "80"
     networks:
-      - ovh_proxy
+      - ovh_default
 
 networks:
-  ovh_proxy:
+  ovh_default:
     external: true
     name: ovh_default
 ```
@@ -266,14 +278,33 @@ Le portail peut alors evoluer et etre redeploye sans rebuild du corpus.
 
 ## Mise a jour du portail apres modification
 
-Dans le projet portail separe :
+Workflow local :
 
 ```bash
+git status
+git add index.html README.md Dockerfile docker-compose.yml assets
+git commit -m "<message>"
+git tag <tag-explicite>
+git push
+git push origin <tag-explicite>
+```
+
+Sur le VPS :
+
+```bash
+cd /home/ubuntu/apps/keltiawave-portal
 git pull --ff-only
 docker compose up -d --build portal
 ```
 
-Si seuls `index.html` ou `assets/` changent, aucun service corpus/backend/minio/postgres n'a besoin d'etre relance.
+Verifier :
+
+```bash
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep keltiawave
+curl -sS -o /dev/null -w "%{http_code}\n" https://keltiawave.com/
+```
+
+Si seuls `index.html`, `README.md` ou `assets/` changent, aucun service corpus/backend/minio/postgres n'a besoin d'etre relance. Caddy n'a pas besoin d'etre recree tant que le routage reste `reverse_proxy keltiawave-portal:80`.
 
 ## Points d'attention
 
