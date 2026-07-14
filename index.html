@@ -160,6 +160,14 @@
       background: var(--blue);
     }
 
+    .lang-button img {
+      width: 22px;
+      height: 14px;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(7, 25, 67, .10);
+    }
+
     .hero {
       width: min(100% - 72px, 1720px);
       margin: 0 auto;
@@ -491,7 +499,7 @@
 
     .footer strong {
       color: var(--blue);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 950;
     }
 
@@ -714,7 +722,7 @@
         display: none;
       }
 
-      .footer strong { font-size: 17px; }
+      .footer strong { font-size: 15px; }
     }
   </style>
 </head>
@@ -726,35 +734,41 @@
           <img class="brand-avatar" src="assets/fanch-avatar-logo.png" alt="">
           <span>
             <span class="brand-name">KeltiaWave</span>
-            <span class="brand-subtitle">Tools for Brittonic languages</span>
+            <span class="brand-subtitle" data-i18n="brandSubtitle">Tools for Brittonic languages</span>
           </span>
         </a>
 
         <nav class="nav" aria-label="Main navigation">
-          <a class="active" href="index.html">Home</a>
-          <a data-language-link href="https://transcription.keltiawave.com/transcribe.html">Transcribe</a>
-          <a data-language-link href="https://transcription.keltiawave.com/record.html">Record</a>
-          <a data-language-link href="https://transcription.keltiawave.com/studio.html">Subtitle Studio</a>
+          <a class="active" href="index.html" data-i18n="navHome">Home</a>
+          <a data-language-link href="https://transcription.keltiawave.com/transcribe.html" data-i18n="navTranscribe">Transcribe</a>
+          <a data-language-link href="https://transcription.keltiawave.com/record.html" data-i18n="navRecord">Record</a>
+          <a data-language-link href="https://transcription.keltiawave.com/studio.html" data-i18n="navStudio">Subtitle Studio</a>
           <a data-language-link href="https://corpus.keltiawave.com/">Corpus</a>
-          <a data-language-link href="https://transcription.keltiawave.com/about.html">About</a>
-          <a data-language-link href="https://transcription.keltiawave.com/contribute.html">Community</a>
+          <a data-language-link href="https://transcription.keltiawave.com/about.html" data-i18n="navAbout">About</a>
+          <a data-language-link href="https://transcription.keltiawave.com/contribute.html" data-i18n="navCommunity">Community</a>
         </nav>
 
         <div class="language-actions" aria-label="Languages">
-          <button class="lang-button" type="button" data-portal-language="en">🇬🇧 EN</button>
-          <button class="lang-button" type="button" data-portal-language="cy">🇨🇾 CY</button>
-          <button class="lang-button" type="button" data-portal-language="br"><img src="assets/flag-cornwall.svg" alt="" style="width:22px;height:14px"> BR</button>
+          <button class="lang-button" type="button" data-portal-language="en" aria-label="English">
+            <img src="assets/flag-united-kingdom.svg" alt=""> <span>EN</span>
+          </button>
+          <button class="lang-button" type="button" data-portal-language="cy" aria-label="Cymraeg">
+            <img src="assets/flag-wales.svg" alt=""> <span>CY</span>
+          </button>
+          <button class="lang-button" type="button" data-portal-language="br" aria-label="Brezhoneg">
+            <img src="assets/flag-brittany.png" alt=""> <span>BR</span>
+          </button>
         </div>
       </header>
 
       <div class="hero">
         <div class="hero-copy">
-          <span class="pill">⚗ We are in beta</span>
-          <h1>Surfing the digital wave <span class="script">for Brittonic languages</span></h1>
-          <p>Digital tools to transcribe, learn and share Brittonic languages.</p>
+          <span class="pill" data-i18n="beta">⚗ We are in beta</span>
+          <h1 data-i18n-html="heroTitle">Surfing the digital wave<br><span class="script">for Brittonic languages</span></h1>
+          <p data-i18n="heroText">Digital tools to transcribe, learn and share Brittonic languages.</p>
           <div class="button-row">
-            <a class="button primary" data-language-link href="https://transcription.keltiawave.com/transcribe.html">Get started →</a>
-            <a class="button" data-language-link href="https://transcription.keltiawave.com/about.html">Discover the project →</a>
+            <a class="button primary" data-language-link href="https://transcription.keltiawave.com/transcribe.html" data-i18n="getStarted">Get started →</a>
+            <a class="button" data-language-link href="https://transcription.keltiawave.com/about.html" data-i18n="discover">Discover the project →</a>
           </div>
         </div>
 
@@ -771,9 +785,9 @@
           <div class="tool-copy">
             <span class="tool-icon purple">≋</span>
             <div>
-              <h2>Transcribe</h2>
-              <p>Audio/video to text</p>
-              <a class="purple-link" data-language-link href="https://transcription.keltiawave.com/transcribe.html">Open Transcribe →</a>
+              <h2 data-i18n="toolTranscribe">Transcribe</h2>
+              <p data-i18n="toolTranscribeText">Audio/video to text</p>
+              <a class="purple-link" data-language-link href="https://transcription.keltiawave.com/transcribe.html" data-i18n="openTranscribe">Open Transcribe →</a>
             </div>
           </div>
           <img class="tool-photo transcribe" src="assets/service-photo-transcribe.png" alt="Transcription interface on a laptop">
@@ -783,9 +797,9 @@
           <div class="tool-copy">
             <span class="tool-icon green">♩</span>
             <div>
-              <h2>Record</h2>
-              <p>Voice recording and transcription</p>
-              <a class="green-link" data-language-link href="https://transcription.keltiawave.com/record.html">Open Record →</a>
+              <h2 data-i18n="toolRecord">Record</h2>
+              <p data-i18n="toolRecordText">Voice recording and transcription</p>
+              <a class="green-link" data-language-link href="https://transcription.keltiawave.com/record.html" data-i18n="openRecord">Open Record →</a>
             </div>
           </div>
           <img class="tool-photo record" src="assets/service-photo-record.png" alt="Recording microphone">
@@ -795,9 +809,9 @@
           <div class="tool-copy">
             <span class="tool-icon orange">▣</span>
             <div>
-              <h2>Subtitle Studio</h2>
-              <p>Create and edit subtitles</p>
-              <a class="orange-link" data-language-link href="https://transcription.keltiawave.com/studio.html">Open Studio →</a>
+              <h2 data-i18n="toolStudio">Subtitle Studio</h2>
+              <p data-i18n="toolStudioText">Create and edit subtitles</p>
+              <a class="orange-link" data-language-link href="https://transcription.keltiawave.com/studio.html" data-i18n="openStudio">Open Studio →</a>
             </div>
           </div>
           <img class="tool-photo studio" src="assets/service-photo-studio.png" alt="Subtitle editing interface">
@@ -808,8 +822,8 @@
             <span class="tool-icon blue">▥</span>
             <div>
               <h2>Corpus</h2>
-              <p>Breton corpus for now</p>
-              <a class="blue-link" data-language-link href="https://corpus.keltiawave.com/">Open Corpus →</a>
+              <p data-i18n="toolCorpusText">Breton corpus for now</p>
+              <a class="blue-link" data-language-link href="https://corpus.keltiawave.com/" data-i18n="openCorpus">Open Corpus →</a>
             </div>
           </div>
           <img class="tool-photo corpus" src="assets/service-photo-corpus.png" alt="Corpus interface on a laptop">
@@ -820,28 +834,28 @@
         <article class="language-card">
           <img class="language-avatar" src="assets/fanch-avatar-bzh-01.webp" alt="">
           <span class="flag-box"><img src="assets/flag-brittany.png" alt="Breton flag"></span>
-          <span><h2>Breizh</h2><p>Breton</p></span>
-          <span class="badge">Beta</span>
+          <span><h2>Breizh</h2><p data-i18n="languageBreton">Breton</p></span>
+          <span class="badge" data-i18n="badgeBeta">Beta</span>
         </article>
 
         <article class="language-card">
           <img class="language-avatar" src="assets/fanch-avatar-cymru-rugby2.webp" alt="">
           <span class="flag-box"><img src="assets/flag-wales.svg" alt="Welsh flag"></span>
-          <span><h2>Cymru</h2><p>Welsh</p></span>
-          <span class="badge">Beta</span>
+          <span><h2>Cymru</h2><p data-i18n="languageWelsh">Welsh</p></span>
+          <span class="badge" data-i18n="badgeBeta">Beta</span>
         </article>
 
         <article class="language-card">
           <img class="language-avatar" src="assets/fanch-avatar-hoodie2.webp" alt="">
           <span class="flag-box"><img src="assets/flag-cornwall.svg" alt="Cornish flag"></span>
-          <span><h2>Kernow</h2><p>Cornish</p></span>
-          <span class="badge soon">Coming soon</span>
+          <span><h2>Kernow</h2><p data-i18n="languageCornish">Cornish</p></span>
+          <span class="badge soon" data-i18n="badgeSoon">Coming soon</span>
         </article>
       </section>
     </main>
 
     <footer class="footer">
-      <span>Hautiere prod, 14 Hent Prat Carbon, Beg-Meil, 29170 Fouesnant</span>
+      <span>Hautiere prod, 14 Hent Prat Carbon, Beg-Meil</span>
       <span>•</span>
       <strong>Brezhoneg <span class="yellow">gant</span> <span class="orange">Fañch</span></strong>
       <span>•</span>
@@ -854,6 +868,100 @@
       const supportedLanguages = new Set(["en", "cy", "br"]);
       const links = Array.from(document.querySelectorAll("[data-language-link]"));
       const buttons = Array.from(document.querySelectorAll("[data-portal-language]"));
+      const textNodes = Array.from(document.querySelectorAll("[data-i18n]"));
+      const htmlNodes = Array.from(document.querySelectorAll("[data-i18n-html]"));
+      const translations = {
+        en: {
+          brandSubtitle: "Tools for Brittonic languages",
+          navHome: "Home",
+          navTranscribe: "Transcribe",
+          navRecord: "Record",
+          navStudio: "Subtitle Studio",
+          navAbout: "About",
+          navCommunity: "Community",
+          beta: "⚗ We are in beta",
+          heroTitle: 'Surfing the digital wave<br><span class="script">for Brittonic languages</span>',
+          heroText: "Digital tools to transcribe, learn and share Brittonic languages.",
+          getStarted: "Get started →",
+          discover: "Discover the project →",
+          toolTranscribe: "Transcribe",
+          toolTranscribeText: "Audio/video to text",
+          openTranscribe: "Open Transcribe →",
+          toolRecord: "Record",
+          toolRecordText: "Voice recording and transcription",
+          openRecord: "Open Record →",
+          toolStudio: "Subtitle Studio",
+          toolStudioText: "Create and edit subtitles",
+          openStudio: "Open Studio →",
+          toolCorpusText: "Breton corpus for now",
+          openCorpus: "Open Corpus →",
+          languageBreton: "Breton",
+          languageWelsh: "Welsh",
+          languageCornish: "Cornish",
+          badgeBeta: "Beta",
+          badgeSoon: "Coming soon"
+        },
+        cy: {
+          brandSubtitle: "Offer ar gyfer ieithoedd Brythonaidd",
+          navHome: "Hafan",
+          navTranscribe: "Trawsgrifio",
+          navRecord: "Recordio",
+          navStudio: "Stiwdio Isdeitlau",
+          navAbout: "Amdanom",
+          navCommunity: "Cymuned",
+          beta: "⚗ Rydym mewn beta",
+          heroTitle: 'Syrffio’r don ddigidol<br><span class="script">ar gyfer ieithoedd Brittonic</span>',
+          heroText: "Offer digidol i drawsgrifio, dysgu a rhannu ieithoedd Brythonaidd.",
+          getStarted: "Dechrau →",
+          discover: "Darganfod y prosiect →",
+          toolTranscribe: "Trawsgrifio",
+          toolTranscribeText: "Sain/fideo i destun",
+          openTranscribe: "Agor Trawsgrifio →",
+          toolRecord: "Recordio",
+          toolRecordText: "Recordio llais a thrawsgrifio",
+          openRecord: "Agor Recordio →",
+          toolStudio: "Stiwdio Isdeitlau",
+          toolStudioText: "Creu a golygu isdeitlau",
+          openStudio: "Agor y Stiwdio →",
+          toolCorpusText: "Corpws Llydaweg am y tro",
+          openCorpus: "Agor y Corpws →",
+          languageBreton: "Llydaweg",
+          languageWelsh: "Cymraeg",
+          languageCornish: "Cernyweg",
+          badgeBeta: "Beta",
+          badgeSoon: "Yn dod yn fuan"
+        },
+        br: {
+          brandSubtitle: "Ostilhoù evit ar yezhoù predenek",
+          navHome: "Degemer",
+          navTranscribe: "Treuzskrivañ",
+          navRecord: "Enrollañ",
+          navStudio: "Studio istitloù",
+          navAbout: "Diwar-benn",
+          navCommunity: "Kumuniezh",
+          beta: "⚗ E beta emaomp",
+          heroTitle: 'Surfing war ar wagenn niverel<br><span class="script">evit ar yezhoù Brittonic</span>',
+          heroText: "Ostilhoù niverel evit treuzskrivañ, deskiñ ha rannañ ar yezhoù predenek.",
+          getStarted: "Kregiñ →",
+          discover: "Dizoleiñ ar raktres →",
+          toolTranscribe: "Treuzskrivañ",
+          toolTranscribeText: "Audio/video da destenn",
+          openTranscribe: "Digeriñ Treuzskrivañ →",
+          toolRecord: "Enrollañ",
+          toolRecordText: "Enrollañ mouezh ha treuzskrivañ",
+          openRecord: "Digeriñ Enrollañ →",
+          toolStudio: "Studio istitloù",
+          toolStudioText: "Krouiñ ha reizhañ istitloù",
+          openStudio: "Digeriñ ar Studio →",
+          toolCorpusText: "Korpus brezhoneg evit poent",
+          openCorpus: "Digeriñ ar c’horpus →",
+          languageBreton: "Brezhoneg",
+          languageWelsh: "Kembraeg",
+          languageCornish: "Kerneveureg",
+          badgeBeta: "Beta",
+          badgeSoon: "A-benn nebeut"
+        }
+      };
 
       function cleanLanguage(value) {
         return supportedLanguages.has(value) ? value : "en";
@@ -875,9 +983,22 @@
         return url.toString();
       }
 
+      function applyTranslations(language) {
+        const dictionary = translations[language] || translations.en;
+        textNodes.forEach((node) => {
+          const value = dictionary[node.dataset.i18n];
+          if (value) node.textContent = value;
+        });
+        htmlNodes.forEach((node) => {
+          const value = dictionary[node.dataset.i18nHtml];
+          if (value) node.innerHTML = value;
+        });
+      }
+
       function setLanguage(language) {
         const nextLanguage = cleanLanguage(language);
         document.documentElement.lang = nextLanguage;
+        applyTranslations(nextLanguage);
         links.forEach((link) => {
           link.href = withLanguage(link.href, nextLanguage);
         });

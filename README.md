@@ -27,6 +27,7 @@ portal-standalone/
     ├── fanch-avatar-hoodie2.webp
     ├── flag-brittany.png
     ├── flag-cornwall.svg
+    ├── flag-united-kingdom.svg
     └── flag-wales.svg
 ```
 
@@ -37,6 +38,18 @@ assets/...
 ```
 
 Elle peut donc etre deplacee telle quelle dans un autre depot.
+
+## Fonctionnalites actuelles
+
+- Page portail statique servie a la racine `https://keltiawave.com/`.
+- Hero visuel avec image de la Torche, cartes outils et panneau des langues.
+- Choix d'interface `EN`, `CY`, `BR` avec vrais drapeaux UK, gallois et breton.
+- Les libelles du portail changent au clic sur le drapeau.
+- Les liens vers le transcripteur et le corpus conservent la langue choisie via `?lang=...`.
+- Le corpus est annonce comme breton pour le moment.
+- Footer volontairement court pour tenir sur une ligne : adresse reduite, contact et signature `Brezhoneg gant Fanch`.
+
+Note sur les langues : le mot `Brittonic` reste volontairement non traduit dans le titre.
 
 ## Regle de nommage des tags
 
@@ -330,16 +343,16 @@ cwebp -q 82 -crop X Y LARGEUR HAUTEUR assets/source-avatar.png -o assets/nom-ava
 
 ### Commit et tag
 
-Exemple :
+Exemple pour la version actuelle du portail :
 
 ```bash
 git status
-git add index.html README.md Dockerfile docker-compose.yml assets/*.webp assets/*.svg assets/*.png assets/*.jpg
+git add index.html README.md assets/flag-united-kingdom.svg
 git status --short
-git commit -m "Update portal assets"
-git tag -a portal-assets-YYYY-MM-DD -m "Update portal assets YYYY-MM-DD"
+git commit -m "Update portal language selector"
+git tag -a portal-language-selector-and-footer-YYYY-MM-DD -m "Portal language selector and footer YYYY-MM-DD"
 git push
-git push origin portal-assets-YYYY-MM-DD
+git push origin portal-language-selector-and-footer-YYYY-MM-DD
 ```
 
 Ne pas faire `git add assets/*.png` si le PNG est seulement une source de travail. Dans ce cas, ajouter explicitement les fichiers finaux :
